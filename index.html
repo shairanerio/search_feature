@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css" media="screen">
+    <link rel="stylesheet" href="css/styles.css" media="screen">
+    <title>Online CV webpage</title>
+</head>
+
+<body>
+    <header>
+        <p>I am a header with an unordered list of hyperlinks</p>
+        <ul class="nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <script>
+            alert("Hello World! I am an alert box.");
+        </script>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search sections...">
+        <script>
+            document.getElementById("search-input").addEventListener("input", function () {
+                let query = this.value.toLowerCase().trim();
+                let cards = document.querySelectorAll(".card");
+        
+                cards.forEach(card => {
+                    let text = card.innerText.toLowerCase();
+                    if (text.includes(query)) {
+                        card.style.visibility = "visible";
+                        card.style.height = "auto";
+                        card.style.margin = "0 auto";
+                        card.style.padding = "5%";
+                    } else {
+                        card.style.visibility = "hidden";
+                        card.style.height = "0";
+                        card.style.margin = "0"; 
+                        card.style.padding = "0"; 
+                    }
+                });
+            });
+        </script>        
+    </div> 
+
+    <img src="images/my-avatar.jpg" style="width: 200px; height: 200px;"/>
+    <p id="para1" class="cardheader">I am an image and I'm all by myself</p>   
+
+    <div class="page-content">
+        <div class="card" id="about">
+            <p id="para2" class="card-header">About</p>
+            <p id="para3" class="card-body">Hello! Tell us about yourself.</p>
+        </div>
+        <div class="card" id="education">
+            <p id="para4" class="card-header">Education</p>
+            <p id="para5" class="card-body">Tell us about your education</p>
+        </div>
+        <div class="card" id="skills">
+            <p id="para6" class="card-header">Skills</p>
+            <p id="para7" class="card-body">Tell us about your IT Skills>
+        </div>
+        <div class="card" id="portfolio">
+            <p id="para8" class="card-header">Portfolio</p>
+            <p id="para9" class="card-body">Share your previous IT projects</p>
+
+            <h2>Courses Taken</h2>
+            <ul id="courses-taken" class="card-body"></ul>
+        </div>
+
+        </div>
+    </div>
+
+        <script>
+            const paragraph1 = document.getElementById("para1")
+            console.log(paragraph1);
+
+            const paragraph2 = document.getElementById("para2")
+            console.log(paragraph2);
+
+            const paragraph3 = document.getElementById("para3")
+            console.log(paragraph3);
+
+            const paragraph4 = document.getElementById("para4")
+            console.log(paragraph4);
+
+            const paragraph5 = document.getElementById("para5")
+            console.log(paragraph5);
+
+            const paragraph6 = document.getElementById("para6")
+            console.log(paragraph6);
+
+            const paragraph7 = document.getElementById("para7")
+            console.log(paragraph7);
+
+            const paragraph8 = document.getElementById("para8")
+            console.log(paragraph8);
+
+            const paragraph9 = document.getElementById("para9")
+            console.log(paragraph9);
+
+            const jsonURL = "https://shairanerio.github.io/courses_json/courses.json";
+
+            fetch(jsonURL)
+            .then(response => response.json())
+            .then(data => {
+                let CoursesTaken = document.getElementById("courses-taken");
+
+                if (data.courses && Array.isArray(data.courses)) {
+                    data.courses.forEach(course => {
+                        let listItem = document.createElement("li");
+                        listItem.textContent = `${course.year_level} - ${course.sem} - ${course.code} - ${course.description} - ${course.credit}`;
+                        CoursesTaken.appendChild(listItem);
+                    });
+                } else {
+                    console.error("Expected 'courses' array but got:", data);
+                }
+            })
+            .catch(error => console.error("Error fetching JSON:", error)); // Fixed typo (".erorr" → ".error")
+
+        </script>
+    </div>
+
+    <footer>
+        <p>I am footer the last section of this page</p>
+    </footer>
+    
+</body>
+</html>
